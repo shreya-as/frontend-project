@@ -3,21 +3,29 @@
 import React, { useState, ChangeEvent } from "react";
 
 const ConverterForm: React.FC = () => {
-  const [nepAmount, setNepAmount] = useState<number | undefined>(); // state to store nep amount
-  const [busdAmount, setBusdAmount] = useState<number | undefined>(); // state to store busd amount
+  const [nepAmount, setNepAmount] = useState<string | number>(""); // state to store nep amount
+  const [busdAmount, setBusdAmount] = useState<string | number>(""); // state to store busd amount
 
+  const convertAmount = (value: number, isNepToBusd: boolean) => {
+    const ratio = 3; // 1 NEP is equal to 3 BUSD
+    return isNepToBusd
+      ? (value * ratio).toFixed(2)
+      : (value / ratio).toFixed(2);
+  };
   // handle nep change
-  const handleNepChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const nepValue = parseFloat(e.target.value);
+  const handleNepChange = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    const nepValue = parseFloat(value);
     setNepAmount(nepValue);
-    setBusdAmount(nepValue * 3); // assume 1 NEP = 3 BUSD
+    setBusdAmount(convertAmount(nepValue, true));
   };
 
   // handle busd change
   const handleBusdChange = (e: ChangeEvent<HTMLInputElement>) => {
     const busdValue = parseFloat(e.target.value);
     setBusdAmount(busdValue);
-    setNepAmount(busdValue / 3); // assume 1 NEP = 3 BUSD
+    setNepAmount(convertAmount(busdValue, false));
   };
 
   return (
