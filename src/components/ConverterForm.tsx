@@ -1,5 +1,6 @@
 "use client"; // This is a client component
 
+import { Button } from "@mui/material";
 import React, { useState, ChangeEvent } from "react";
 
 const ConverterForm: React.FC = () => {
@@ -49,6 +50,7 @@ const ConverterForm: React.FC = () => {
           onChange={handleBusdChange}
         />
       </label>
+      <Button variant="contained">Contained</Button>
     </div>
   );
 };
