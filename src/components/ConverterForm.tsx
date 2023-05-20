@@ -22,8 +22,10 @@ const ConverterForm: React.FC = () => {
   };
 
   // handle busd change
-  const handleBusdChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const busdValue = parseFloat(e.target.value);
+  const handleBusdChange = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    const busdValue = parseFloat(value);
     setBusdAmount(busdValue);
     setNepAmount(convertAmount(busdValue, false));
   };
